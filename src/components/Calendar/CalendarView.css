@@ -1,0 +1,66 @@
+/* src/CalendarView.css */
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto auto;
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 1px;
+  background: #444;
+  width: 100%;
+  flex: 1;              /* crece para llenar el contenedor */
+  height: 100%;         /* ocupa todo el padre (.placeholder) */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.calendar-nav {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  background: #333;
+  color: #eee;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #eee;
+}
+.nav-btn:hover {
+  color: #fff;
+}
+
+.nav-label {
+  font-weight: bold;
+}
+
+.calendar-header {
+  background: #333;
+  color: #eee;
+  text-align: center;
+  padding: 4px 0;
+  font-weight: bold;
+}
+
+.calendar-cell {
+  background: #222;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 8px;
+  position: relative;
+  color: #ddd;
+}
+
+.calendar-cell.empty {
+  background: #111;
+  color: transparent;
+}
+
+.cell-number {
+  font-size: 1rem;
+}

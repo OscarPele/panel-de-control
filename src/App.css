@@ -1,0 +1,132 @@
+/* src/App.css */
+
+/* ==============================
+   Reset básico y altura completa
+   ============================== */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #121212;
+  color: #e0e0e0;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================
+   Estilos de App
+   ================ */
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.App-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #1e1e1e;
+  color: #ffffff;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  flex-shrink: 0;
+}
+
+/* ===========================
+   Body, Sidebar y Contenido
+   =========================== */
+.App-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  background: #121212;
+}
+
+.sidebar {
+  width: 200px;
+  background: #212121;
+  border-right: 1px solid #333;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: #cccccc;
+}
+
+.sidebar li:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.sidebar li.active {
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+}
+
+/* iconos */
+.icon {
+  width: 1.5em;
+  height: 1.5em;
+  flex-shrink: 0;
+}
+.icon.calendar { color: #61dafb; }
+.icon.tasks    { color: #bb86fc; }
+.icon.estadisticas { color: #ffca28; }
+
+/* Contenido */
+.content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background: #121212;
+  min-height: 0;
+}
+
+/* placeholder que ocupa todo el content */
+.placeholder {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+  .sidebar li {
+    justify-content: center;    /* centra solo el icono */
+    padding: 0.75rem 0;         /* elimina padding horizontal */
+  }
+  .sidebar li .label {
+    display: none;              /* oculta el texto */
+  }
+  .sidebar li .icon {
+    margin-right: 0;            /* quita margen del icono */
+  }
+  .content {
+    padding: 1rem;
+  }
+}
+
