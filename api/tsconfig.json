@@ -1,0 +1,9 @@
+// api/tsconfig.json
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../dist/api",   // carpeta de salida para la API
+        "rootDir": "."             // raíz en esta carpeta api/
+    },
+    "include": ["*.ts"]          // sólo los .ts de api/
+}

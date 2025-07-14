@@ -1,6 +1,4 @@
-import app from './server'
-
-const PORT = process.env.PORT ?? 3000
+import app, { PORT } from './server'
 
 app.listen(PORT, () => {
   console.log(`API escuchando en http://localhost:${PORT}`)

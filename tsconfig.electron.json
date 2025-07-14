@@ -1,0 +1,12 @@
+// tsconfig.electron.json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist/electron",  // dónde ponemos el JS compilado
+    "rootDir": "electron",      // de dónde tomamos los .ts
+    "composite": false
+  },
+  "include": [
+    "electron/**/*.ts"
+  ]
+}

@@ -1,5 +1,5 @@
-// Define el puerto de la API (mismo valor que usarás en index.ts si quieres)
-const PORT = process.env.PORT ?? 3000
+// Define el puerto de la API (mismo valor que usara en index.ts si quieres)
+export const PORT = process.env.PORT ?? 3000
 
 // URL base exportable
 export const API_BASE = process.env.API_BASE_URL ?? `http://localhost:${PORT}`
@@ -7,9 +7,15 @@ export const API_BASE = process.env.API_BASE_URL ?? `http://localhost:${PORT}`
 
 import express, { type Request, type Response } from 'express'
 import db from './db'
-
+import cors from 'cors'
 
 const app = express()
+
+// Permite peticiones cross-origin únicamente desde el cliente en http://localhost:5173
+app.use(cors({
+  origin: 'http://localhost:5173'  // o `'*'` para permitir todos
+}))
+
 app.use(express.json())
 
 // GET /daily_activities?date=YYYY-MM-DD

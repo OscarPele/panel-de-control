@@ -8,15 +8,19 @@ import Database from 'better-sqlite3'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-// 1. Ruta al directorio de datos
-const dataDir = resolve(__dirname, '../data')
-if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true })
+// Define ruta de datos según entorno de ejecución
+const dataDir = process.env.NODE_ENV === 'production'
+  // En producción, junto al ejecutable
+  ? resolve(dirname(process.execPath), 'data')
+  // En desarrollo, carpeta ../data respecto a este fichero
+  : resolve(__dirname, '../data')
 
-// 2. Abre/crea la BBDD SQLite
+// Crea directorio si no existe\if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true })
+// Ruta al fichero SQLite
 const dbPath = resolve(dataDir, 'data.sqlite')
-const db = new Database(dbPath)
 
-// 3. Inicializa la tabla si no existe
+// Inicializa la base de datos
+const db = new Database(dbPath)
 db.prepare(`
   CREATE TABLE IF NOT EXISTS daily_activities (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

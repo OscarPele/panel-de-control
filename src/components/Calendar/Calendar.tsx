@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import './CalendarView.css'
+import DailyActivity from '../DailyActivity/DailyActivity'
 
 interface CalendarViewProps {
   initialYear?: number      // año inicial opcional
@@ -12,6 +13,9 @@ export default function CalendarView({
   initialYear,
   initialMonth,
 }: CalendarViewProps) {
+  //Creamos estado para la fecha activa (parra componente DailyActicity):
+  const [activeDate, setActiveDate] = useState<string | null>(null)
+  
   // Creamos un objeto Date con la fecha y hora actuales
   // para luego comparar y resaltar el día “hoy” en el calendario.
   const today = new Date()
@@ -78,18 +82,16 @@ export default function CalendarView({
   ]
 
   return (
+  <>
     <div className="calendar-grid">
       {/* barra de navegación del calendario */}
       <div className="calendar-nav">
-        {/* botón mes anterior */}
         <button onClick={prev} className="nav-btn">
           <ChevronLeft />
         </button>
-        {/* muestra mes y año actuales */}
         <span className="nav-label">
           {monthNames[month]} {year}
         </span>
-        {/* botón mes siguiente */}
         <button onClick={next} className="nav-btn">
           <ChevronRight />
         </button>
@@ -103,15 +105,33 @@ export default function CalendarView({
       ))}
 
       {/* celdas del calendario: vacías o con número de día */}
-      {cells.map((day, i) => (
-        <div
-          key={i}
-          className={`calendar-cell ${day ? '' : 'empty'}`}
-        >
-          {/* si hay día, muestra el número */}
-          {day && <div className="cell-number">{day}</div>}
-        </div>
-      ))}
+      {cells.map((day, i) => {
+        const dateStr = day
+          ? `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+          : null
+        return (
+          <div
+            key={i}
+            className={`calendar-cell ${day ? '' : 'empty'}`}
+            onClick={dateStr ? () => setActiveDate(dateStr) : undefined}
+          >
+            {/* si hay día, muestra el número */}
+            {day && <div className="cell-number">{day}</div>}
+          </div>
+        )
+      })}
     </div>
-  )
+
+    {/* renderiza el modal si hay fecha activa */}
+    {activeDate && (
+      <DailyActivity
+        date={activeDate}
+        onClose={() => setActiveDate(null)}
+        onActivityChange={() => {
+          /* opcional: refrescar datos del calendario */
+        }}
+      />
+    )}
+  </>
+)
 }
