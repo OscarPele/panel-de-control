@@ -3,7 +3,8 @@ import { useState, useEffect, type ChangeEvent, type FormEvent } from 'react'
 import { X, Trash2 } from 'lucide-react'
 import './DailyActivity.css'
 
-const API_BASE = import.meta.env.VITE_API_BASE
+// “forzamos” TS a no validar import.meta.env
+const API_BASE = (import.meta as any).env.VITE_API_BASE
 
 // Lista de categorías disponibles
 export const DAILY_CATEGORIES = [

@@ -4,7 +4,6 @@ export const PORT = process.env.PORT ?? 3000
 // URL base exportable
 export const API_BASE = process.env.API_BASE_URL ?? `http://localhost:${PORT}`
 
-
 import express, { type Request, type Response } from 'express'
 import db from './db'
 import cors from 'cors'

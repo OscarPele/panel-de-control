@@ -1,5 +1,4 @@
-import app, { PORT } from './server'
+import app, { PORT } from './server.js'
 
-app.listen(PORT, () => {
-  console.log(`API escuchando en http://localhost:${PORT}`)
-})
+export default app
+export { PORT }

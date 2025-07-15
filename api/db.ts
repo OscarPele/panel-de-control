@@ -1,5 +1,4 @@
 // src/api/db.ts
-import fs from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname, resolve } from 'path'
 import Database from 'better-sqlite3'

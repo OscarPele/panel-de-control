@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "panel-de-control",
   "private": true,
   "version": "0.0.0",
@@ -9,7 +10,7 @@
     "dev:api": "tsx watch api/index.ts",
     "dev:electron": "concurrently \"npm run dev:api\" \"npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
     "build:ui": "vite build",
-    "build:api": "tsc -b api/tsconfig.json",
+    "build:api": "tsc --project api/tsconfig.json",
     "build:electron": "tsc -p tsconfig.electron.json",
     "build": "npm run build:api && npm run build:ui && npm run build:electron && electron-builder",
     "lint": "eslint .",
@@ -32,6 +33,7 @@
     "@types/node": "^24.0.13",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/wait-on": "^5.3.4",
     "@vitejs/plugin-react": "^4.6.0",
     "concurrently": "^9.2.0",
     "electron": "^37.2.1",
@@ -53,10 +55,18 @@
       "dist/**",
       "dist/api/**",
       "dist/electron/**",
-      "api/**",
       "node_modules/**",
       "package.json"
     ],
+    "mac": {
+      "target": [
+        "zip"
+      ],
+      "identity": null
+    },
+    "dmg": {
+      "sign": false
+    },
     "directories": {
       "buildResources": "assets"
     }
