@@ -2,8 +2,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist/electron",    // carpeta destino para los .js de Electron
-    "rootDir": "electron",        // solo los .ts bajo electron/
+    "outDir": "dist/electron",
+    "rootDir": "electron",        
     "composite": false,
     "module": "ESNext",
     "target": "ES2020",

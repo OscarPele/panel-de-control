@@ -1,0 +1,15 @@
+// api/tsconfig.json
+{
+  "compilerOptions": {
+    "outDir": "../dist/api",      // donde saldrán los .js
+    "rootDir": ".",               // para mantener la misma estructura
+    "module": "ESNext",           // generamos ESM (o usa "CommonJS" si prefieres)
+    "target": "ES2020",           // versión JS de salida
+    "moduleResolution": "node",   // resolución estilo Node
+    "esModuleInterop": true,      // compatibilidad CJS↔ESM
+    "skipLibCheck": true          // ignora chequeo de tipos externos
+  },
+  "include": [
+    "**/*.ts"                     // todos los .ts dentro de api/
+  ]
+}

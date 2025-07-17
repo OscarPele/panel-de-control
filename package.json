@@ -9,10 +9,10 @@
     "dev": "vite",
     "dev:api": "tsx watch api/index.ts",
     "dev:electron": "concurrently \"npm run dev:api\" \"npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
-    "build:ui": "vite build",
     "build:api": "tsc --project api/tsconfig.json",
+    "build:ui":  "vite build",
     "build:electron": "tsc -p tsconfig.electron.json",
-    "build": "npm run build:api && npm run build:ui && npm run build:electron && electron-builder",
+    "build":     "npm run build:ui && npm run build:electron && electron-builder",
     "lint": "eslint .",
     "start:api": "node dist/api/index.js"
   },
