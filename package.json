@@ -10,9 +10,9 @@
     "dev:api": "tsx watch api/index.ts",
     "dev:electron": "concurrently \"npm run dev:api\" \"npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
     "build:api": "tsc --project api/tsconfig.json",
-    "build:ui":  "vite build",
+    "build:ui": "vite build",
     "build:electron": "tsc -p tsconfig.electron.json",
-    "build":     "npm run build:ui && npm run build:electron && electron-builder",
+    "build": "npm run build:ui && npm run build:electron && electron-builder",
     "lint": "eslint .",
     "start:api": "node dist/api/index.js"
   },
@@ -42,6 +42,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
+    "icon-gen": "^5.0.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.3",
     "typescript": "~5.8.3",
@@ -58,17 +59,22 @@
       "node_modules/**",
       "package.json"
     ],
+    "directories": {
+      "buildResources": "assets/icons"
+    },
     "mac": {
-      "target": [
-        "zip"
-      ],
-      "identity": null
+      "target": ["zip", "dmg"],
+      "identity": null,
+      "icon": "calendar.icns"
     },
     "dmg": {
       "sign": false
     },
-    "directories": {
-      "buildResources": "assets"
+    "win": {
+      "icon": "calendar.ico"
+    },
+    "linux": {
+      "icon": "calendar.png"
     }
   }
 }
