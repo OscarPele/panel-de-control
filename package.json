@@ -7,14 +7,20 @@
   "main": "dist/electron/main.js",
   "scripts": {
     "dev": "vite",
-    "dev:api": "tsx watch api/index.ts",
+    
+    "rebuild-local": "npm rebuild better-sqlite3 --build-from-source",
+    "dev:api": "npm run rebuild-local && tsx watch electron/api/index.ts",
+
     "dev:electron": "concurrently \"npm run dev:api\" \"npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
     "build:api": "tsc --project api/tsconfig.json",
     "build:ui": "vite build",
     "build:electron": "tsc -p tsconfig.electron.json",
-    "build": "npm run build:ui && npm run build:electron && electron-builder",
+    "rebuild-native": "npm rebuild better-sqlite3 --build-from-source --runtime=electron --target=37.2.1 --disturl=https://electronjs.org/headers",
+    "build": "npm run rebuild-native && npm run build:ui && npm run build:electron && electron-builder",
     "lint": "eslint .",
-    "start:api": "node dist/api/index.js"
+    "start:api": "node dist/api/index.js",
+    
+    "postinstall": "electron-rebuild -f -w better-sqlite3"
   },
   "dependencies": {
     "better-sqlite3": "^12.2.0",
@@ -48,7 +54,8 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.4",
-    "wait-on": "^8.0.3"
+    "wait-on": "^8.0.3",
+    "electron-rebuild": "^3.2.9"
   },
   "build": {
     "appId": "com.tu-org.panel",
@@ -63,7 +70,10 @@
       "buildResources": "assets/icons"
     },
     "mac": {
-      "target": ["zip", "dmg"],
+      "target": [
+        "zip",
+        "dmg"
+      ],
       "identity": null,
       "icon": "calendar.icns"
     },
