@@ -1,0 +1,82 @@
+/* src/components/CellActivities/CellActivities.css */
+
+.cell-activities {
+  min-width: 0;
+  overflow: hidden;
+}
+
+
+.activity-pill {
+  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  margin: 1px;
+  border-radius: 12px;
+
+  /* clave: permitir encogerse y no superar al padre */
+  flex-shrink: 1;
+  max-width: 100%;
+  overflow: hidden;
+
+  background-color: var(--pill-bg);
+  color: var(--pill-text);
+}
+
+.pill-icon {
+  /* tamaño de la “cajita” */
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+
+
+  /* centrado interno */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* color del fondo = color del texto (más claro) */
+  background-color: var(--pill-text);
+  /* estrella siempre negra */
+  color: #000 !important;
+  /* sin borde extra */
+  border: none;
+  /* forma de círculo */
+  border-radius: 50%;
+
+  flex: 0 0 auto;
+}
+
+.pill-label {
+  /* sigue usando text-overflow */
+  min-width: 0;
+  flex-shrink: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+
+
+.more-pill {
+  /* ocupa todo el espacio del contenedor */
+  width: 100%;
+  max-width: none;        /* anula el max-width heredado */
+
+  /* estilo de flex para centrar el contenido (ajústalo si lo quieres a la izquierda) */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* recorte si fuese necesario (aunque con un “+n” casi no hace falta) */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* fondo y texto (fallback por si no vienen inline) */
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+

@@ -4,11 +4,11 @@ import { X, Trash2 } from 'lucide-react'
 import './DailyActivity.css'
 
 // “forzamos” TS a no validar import.meta.env
-const API_BASE = (import.meta as any).env.VITE_API_BASE
+export const API_BASE = (import.meta as any).env.VITE_API_BASE
 
 // Lista de categorías disponibles
 export const DAILY_CATEGORIES = [
-  'Lectura / Estudio de temario',
+  'Estudio / Lectura de temario',
   'Actividades / Deberes del ciclo',
   'Lectura de programación (extra)',
   'Proyectos personales de programación',
@@ -21,6 +21,28 @@ export const DAILY_CATEGORIES = [
   'Tiempo con otras personas',
   'Gestiones / papeleo / trámites',
 ] as const
+
+// Mapa de colores por categoría
+export const ACTIVITY_COLOR_MAP: Record<typeof DAILY_CATEGORIES[number], string> = {
+  /* Estudio */
+  'Estudio / Lectura de temario':        '#58a05c88',
+  'Actividades / Deberes del ciclo':    '#2c8b318d',
+  'Lectura de programación (extra)':    '#0180079f',
+  'Proyectos personales de programación':'#2f90348c',
+
+  /* Ocio */
+  'Ocio consciente':                   '#ba815285',
+  'Ejercicio físico / movimiento':     '#5c84a386',
+  'Meditación / journaling / autocuidado':'#a17f357f',
+  'Tiempo muerto / improductivo':       '#e0e0e077',
+
+  /* Obligaciones */
+  'Tareas domésticas / recados':        '#8225bc84',
+  'Trabajo':                             '#8d24aa6d',
+  'Tiempo con otras personas':           '#ae2ec578',
+  'Gestiones / papeleo / trámites':      '#ce93d871',
+}
+
 
 const ESTUDIO_CATEGORIES    = DAILY_CATEGORIES.slice(0, 4)
 const OCIO_CATEGORIES      = DAILY_CATEGORIES.slice(4, 8)

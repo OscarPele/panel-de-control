@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import './CalendarView.css'
 import DailyActivity from '../DailyActivity/DailyActivity'
+import CellActivities from './CellActivities/CellActivities'
+
 
 interface CalendarViewProps {
   initialYear?: number      // año inicial opcional
@@ -15,6 +17,8 @@ export default function CalendarView({
 }: CalendarViewProps) {
   //Creamos estado para la fecha activa (parra componente DailyActicity):
   const [activeDate, setActiveDate] = useState<string | null>(null)
+  //Logica de refresco actividades diarias
+  const [refreshKey, setRefreshKey] = useState(0)
   
   // Creamos un objeto Date con la fecha y hora actuales
   // para luego comparar y resaltar el día “hoy” en el calendario.
@@ -117,6 +121,10 @@ export default function CalendarView({
           >
             {/* si hay día, muestra el número */}
             {day && <div className="cell-number">{day}</div>}
+            
+            {/* Render de actividades registradas */}
+            {dateStr && <CellActivities date={dateStr} refreshKey={refreshKey} />}
+
           </div>
         )
       })}
@@ -128,7 +136,7 @@ export default function CalendarView({
         date={activeDate}
         onClose={() => setActiveDate(null)}
         onActivityChange={() => {
-          /* opcional: refrescar datos del calendario */
+          setRefreshKey(k => k + 1)
         }}
       />
     )}
