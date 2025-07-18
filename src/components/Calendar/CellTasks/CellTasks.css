@@ -1,0 +1,51 @@
+/* src/components/CellTasks/CellTasks.css */
+
+.cell-tasks {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.task-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;             /* un poco más separación */
+  margin: 5px 0;        /* más margen vertical */
+  padding-left: 15px;   /* más espacio para el rectángulo */
+  font-size: 1.3rem;      /* 16px en lugar de 14px */
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;               /* grosor de la barra */
+  background-color: var(--task-accent, #fffb00);
+  border-radius: 9999px;    /* cápsula completa */
+}
+
+
+.task-icon {
+  flex: 0 0 auto;
+  width: 18px;              /* icono más grande */
+  height: 18px;
+  color: #fff !important;
+}
+
+.more-row {
+  opacity: 0.7;
+  font-style: italic;
+  font-size: 0.95rem;       /* un poco más grande */
+}
+
+
+/* Tasks completadas: barra verde */
+.task-row.completed::before {
+  background-color: #00ff0d; /* verde */
+}

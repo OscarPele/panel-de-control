@@ -17,6 +17,8 @@ app.use(cors({
 
 app.use(express.json())
 
+//Gestion daily activities:
+
 // GET /daily_activities?date=YYYY-MM-DD
 // Si se pasa `date`, devuelve solo las actividades de ese día exacto.
 app.get('/daily_activities', (req: Request, res: Response) => {
@@ -54,5 +56,55 @@ app.delete('/daily_activities/:id', (req: Request, res: Response) => {
   db.prepare('DELETE FROM daily_activities WHERE id = ?').run(id)
   res.sendStatus(204)
 })
+
+
+//CRUD Tasks:
+
+// GET /tasks
+// Devuelve todas las tareas (ignora cualquier query)
+app.get('/tasks', (req: Request, res: Response) => {
+  const rows = db
+    .prepare('SELECT * FROM tasks')
+    .all()
+  res.json(rows)
+})
+
+// POST /tasks
+// Body: { title: string, date: string }
+app.post('/tasks', (req: Request, res: Response) => {
+  const { title, date } = req.body
+  const info = db
+    .prepare(
+      'INSERT INTO tasks (title, date) VALUES (?, ?)'
+    )
+    .run(title, date)
+
+  const record = db
+    .prepare('SELECT * FROM tasks WHERE id = ?')
+    .get(info.lastInsertRowid)
+  res.status(201).json(record)
+})
+
+// PUT /tasks/:id
+// Body: { completed: boolean }
+app.put('/tasks/:id', (req: Request, res: Response) => {
+  const id = Number(req.params.id)
+  const { completed } = req.body
+  db
+    .prepare('UPDATE tasks SET completed = ? WHERE id = ?')
+    .run(completed ? 1 : 0, id)
+  res.sendStatus(204)
+})
+
+// DELETE /tasks/:id
+app.delete('/tasks/:id', (req: Request, res: Response) => {
+  const id = Number(req.params.id)
+  db
+    .prepare('DELETE FROM tasks WHERE id = ?')
+    .run(id)
+  res.sendStatus(204)
+})
+
+
 
 export default app

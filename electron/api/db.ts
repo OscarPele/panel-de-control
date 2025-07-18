@@ -54,4 +54,14 @@ db.prepare(`
   )
 `).run()
 
+
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS tasks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    date TEXT NOT NULL,
+    completed INTEGER NOT NULL DEFAULT 0
+  )
+`).run()
+
 export default db

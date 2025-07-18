@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { FaCalendarAlt, FaTasks, FaChartBar } from 'react-icons/fa'
 import './App.css'
 import Calendar from './components/Calendar/Calendar'
+import Task from './components/Tasks/Tasks'
 
 // Define las vistas posibles disponibles en la aplicación
 type View = 'calendario' | 'tareas' | 'estadisticas'
@@ -48,7 +49,7 @@ export default function App() {
         <main className="content">
           <div className="placeholder">
             {view === 'calendario' && <Calendar/>}
-            {view === 'tareas'     && <h2>Vista Tareas</h2>}
+            {view === 'tareas'     && <Task/>}
             {view === 'estadisticas' && <h2>Vista Estadísticas</h2>}
           </div>
         </main>

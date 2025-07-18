@@ -1,0 +1,150 @@
+/* src/components/Task/Tasks.css */
+
+.task {
+  width: 100%;
+  background: #222;
+  color: #ddd;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-header h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.task-new {
+  display: flex;
+  gap: 12px;
+}
+
+.task-new input[type="text"],
+.task-new input[type="date"] {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #333;
+  color: #eee;
+  font-size: 1rem;
+}
+
+.task-new button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #388e3c;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.task-new button:hover {
+  background: #2e7031;
+}
+
+.task-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.task-section h3 {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+  color: #ccc;
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #333;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  font-size: 1.125rem;
+}
+
+.task-list li.completed .task-title {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.task-title {
+  flex: 1;
+  cursor: pointer;
+}
+
+.task-date {
+  font-size: 1rem;
+  color: #aaa;
+  white-space: nowrap;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #e53935;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 4px;
+}
+.delete-btn:hover {
+  color: #ff1744;
+}
+
+.task-list .empty {
+  text-align: center;
+  color: #757575;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+
+
+.task-item input[type="checkbox"] {
+  /* tamaño y caja negra */
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.5em;
+  height: 1.5em;
+  background: #000;
+  border: 2px solid #000;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* al marcar, dibujamos el “tick” blanco */
+.task-item input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 0.15em;
+  left: 0.45em;
+  width: 0.2em;
+  height: 0.6em;
+  border: solid #fff;
+  border-width: 0 0.2em 0.2em 0;
+  transform: rotate(45deg);
+}
