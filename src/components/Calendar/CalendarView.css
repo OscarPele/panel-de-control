@@ -66,5 +66,18 @@
 }
 
 .cell-number {
-  font-size: 1rem;
+  font-size: 1.2rem;
+}
+
+
+.calendar-cell.today .cell-number {
+  width: 2rem;               /* tamaño del círculo */
+  height: 2rem;
+  background-color: red;     /* color de fondo */
+  color: black;              /* color del texto */
+  border-radius: 50%;        /* lo convierte en círculo */
+  display: flex;             /* centrar el número */
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;         /* opcional, para resaltar el número */
 }

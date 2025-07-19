@@ -1,4 +1,3 @@
-// src/CalendarView.tsx
 import { useEffect, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import './CalendarView.css'
@@ -7,9 +6,11 @@ import CellActivities from './CellActivities/CellActivities'
 import CellTasks from './CellTasks/CellTasks'
 import { API_BASE } from '../DailyActivity/DailyActivity'
 
-interface CalendarViewProps {
-  initialYear?: number      // año inicial opcional
-  initialMonth?: number     // mes inicial opcional (0–11)
+interface CalendarProps {
+  initialYear?: number
+  initialMonth?: number
+  refreshKey?: number
+  onActivityChange?: () => void
 }
 
 interface TaskRecord {
@@ -19,18 +20,22 @@ interface TaskRecord {
   completed: boolean
 }
 
-export default function CalendarView({
+export default function Calendar({
   initialYear,
   initialMonth,
-}: CalendarViewProps) {
+  refreshKey,
+  onActivityChange,
+}: CalendarProps) {
   // Estado con las tareas de todo el mes mostrado
   const [monthTasks, setMonthTasks] = useState<TaskRecord[]>([])
   // Fecha activa para el modal de DailyActivity
   const [activeDate, setActiveDate] = useState<string | null>(null)
-  // Para forzar recarga de CellActivities
-  const [refreshKey, setRefreshKey] = useState(0)
-
+  
+  // Fecha de hoy y sus componentes
   const today = new Date()
+  const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`
+
+  // Año y mes mostrados
   const [year, setYear] = useState(
     initialYear !== undefined ? initialYear : today.getFullYear()
   )
@@ -56,7 +61,7 @@ export default function CalendarView({
     }
   }
 
-  // Carga una vez al montar y cada vez que cambien año o mes
+  // Carga tareas al montar y al cambiar año/mes/refreshKey
   useEffect(() => {
     const loadMonthTasks = async () => {
       try {
@@ -70,7 +75,7 @@ export default function CalendarView({
       }
     }
     loadMonthTasks()
-  }, [year, month])
+  }, [year, month, refreshKey])
 
   // cálculo de celdas
   const firstDay = new Date(year, month, 1).getDay()
@@ -104,18 +109,26 @@ export default function CalendarView({
           const dateStr = day
             ? `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
             : null
+
+          // ¿Es hoy?
+          const isToday = dateStr === todayStr
+
           return (
             <div
               key={i}
-              className={`calendar-cell ${day ? '' : 'empty'}`}
+              className={`
+                calendar-cell
+                ${day ? '' : 'empty'}
+                ${isToday ? 'today' : ''}
+              `}
               onClick={dateStr ? () => setActiveDate(dateStr) : undefined}
             >
               {day && <div className="cell-number">{day}</div>}
 
               {dateStr && (
                 <>
-                  <CellActivities date={dateStr} refreshKey={refreshKey}/>
                   <CellTasks tasks={monthTasks.filter(t => t.date === dateStr)}/>
+                  <CellActivities date={dateStr} refreshKey={refreshKey}/>
                 </>
               )}
             </div>
@@ -127,8 +140,8 @@ export default function CalendarView({
       {activeDate && (
         <DailyActivity
           date={activeDate}
-          onClose={() => setActiveDate(null)}
-          onActivityChange={() => setRefreshKey(k => k + 1)}
+          onClose={()=>setActiveDate(null)}
+          onActivityChange={onActivityChange}
         />
       )}
     </>
