@@ -53,12 +53,20 @@ export default function OnARoll({ refreshKey }: OnARollProps) {
         weekMap.get(weekKey)!.add(dateStr)
       })
 
-      // contar semanas consecutivas desde la actual
+      // contar semanas completas consecutivas, sin incluir la semana en curso
       let count = 0
-      let current = new Date()
-      const currentOffset = (current.getDay() + 6) % 7
-      current.setDate(current.getDate() - currentOffset)
 
+      // 1) hallamos el lunes de la semana actual
+      const today = new Date()
+      const offset = (today.getDay() + 6) % 7
+      const mondayOfThisWeek = new Date(today)
+      mondayOfThisWeek.setDate(today.getDate() - offset)
+
+      // 2) empezamos desde el lunes de la semana pasada
+      const current = new Date(mondayOfThisWeek)
+      current.setDate(current.getDate() - 7)
+
+      // 3) iteramos hacia atrás hasta que una semana no cumpla con ≥3 días
       while (true) {
         const key = current.toISOString().slice(0, 10)
         const daysInWeek = weekMap.get(key)?.size ?? 0
